@@ -24,6 +24,11 @@ Drink.prototype.price = function(){
 
 // AlphaPos Constructor Function
 function AlphaPos() { }
+const orderLists = document.querySelector('[data-order-lists]')
+const alphaPos = new AlphaPos()
+const addDrinkButton = document.querySelector('[data-alpha-pos="add-drink"]')
+
+
 AlphaPos.prototype.getCheckedValue = function (inputName) {
   let selectedOption = ''
   document.querySelectorAll(`[name=${inputName}]`).forEach(function (item) {
@@ -33,7 +38,6 @@ AlphaPos.prototype.getCheckedValue = function (inputName) {
   })
   return selectedOption
 }
-const orderLists = document.querySelector('[data-order-lists]')
 AlphaPos.prototype.addDrink = function (drink) {
   let orderListsCard = `
     <div class="card mb-3">
@@ -53,9 +57,11 @@ AlphaPos.prototype.addDrink = function (drink) {
 
   orderLists.insertAdjacentHTML('afterbegin', orderListsCard)
 }
-const alphaPos = new AlphaPos()
 
-const addDrinkButton = document.querySelector('[data-alpha-pos="add-drink"]')
+AlphaPos.prototype.deleteDrink = function (target) {
+  target.remove()
+}
+
 addDrinkButton.addEventListener('click',()=>{
   // 1. 取得店員選擇的飲料品項、甜度、冰塊選項內容
   const drinkName = alphaPos.getCheckedValue('drink')
@@ -71,4 +77,12 @@ addDrinkButton.addEventListener('click',()=>{
   const drink = new Drink(drinkName, sugar, ice)
   // 4. 將飲料實例產生成左側訂單區的畫面
   alphaPos.addDrink(drink)
+})
+
+orderLists.addEventListener('click', function (event) {
+  let isDeleteButton = event.target.matches('[data-alpha-pos="delete-drink"]')
+  if (!isDeleteButton) {
+    return
+  }
+  alphaPos.deleteDrink(event.target.parentElement.parentElement.parentElement)
 })
