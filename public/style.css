@@ -4,6 +4,7 @@
 
 .col-md-4 {
   overflow-y: auto;
+  max-height: 580px;
 }
 
 [data-alpha-pos="delete-drink"] {
