@@ -1,7 +1,9 @@
-.col-md-4,
-.col-md-8 {
-  outline: 1px solid steelblue;
-  min-height: 600px;
+.row {
+  max-height: 600px;
+}
+
+.col-md-4 {
+  overflow-y: auto;
 }
 
 [data-alpha-pos="delete-drink"] {
@@ -30,5 +32,14 @@
 
 .menu .card:hover {
   box-shadow: 0px 0px 10px 1px rgba(255, 255, 255, 0.8);
+}
+
+body {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: url('alphaPos-bg.jpg') no-repeat center center;
+  background-size: cover;
 }
 
