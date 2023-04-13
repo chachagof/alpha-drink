@@ -27,7 +27,7 @@ function AlphaPos() { }
 const orderLists = document.querySelector('[data-order-lists]')
 const alphaPos = new AlphaPos()
 const addDrinkButton = document.querySelector('[data-alpha-pos="add-drink"]')
-
+const checkoutButton = document.querySelector('[data-alpha-pos="checkout"]')
 
 AlphaPos.prototype.getCheckedValue = function (inputName) {
   let selectedOption = ''
@@ -62,6 +62,20 @@ AlphaPos.prototype.deleteDrink = function (target) {
   target.remove()
 }
 
+AlphaPos.prototype.checkout = function () {
+  let totalAmount = 0
+  document.querySelectorAll('[data-drink-price]').forEach(function (drink) {
+    totalAmount += Number(drink.textContent)
+  })
+  return totalAmount
+}
+
+AlphaPos.prototype.clearOrder = function (target) {
+  target.querySelectorAll('.card').forEach(function (card) {
+    card.remove()
+  })
+}
+
 addDrinkButton.addEventListener('click',()=>{
   // 1. 取得店員選擇的飲料品項、甜度、冰塊選項內容
   const drinkName = alphaPos.getCheckedValue('drink')
@@ -85,4 +99,12 @@ orderLists.addEventListener('click', function (event) {
     return
   }
   alphaPos.deleteDrink(event.target.parentElement.parentElement.parentElement)
+})
+
+checkoutButton.addEventListener('click', function () {
+  // 1. 計算訂單總金額
+  alert(`Total amount of drinks：$${alphaPos.checkout()}`)
+
+  // 2. 清空訂單
+  alphaPos.clearOrder(orderLists)
 })
